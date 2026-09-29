@@ -31,9 +31,17 @@ jobs:
       - name: Run automated tests
         run: python -m pytest -v
 
-      # WEEK 5 TODO:
-      # Add steps below to:
-      # 1. Create a build directory.
-      # 2. Copy the application files, requirements.txt, README.md, and VERSION.
-      # 3. Create a ZIP package from the build directory.
-      # 4. Upload that ZIP file with actions/upload-artifact@v4.
+      # Steps below only run if the tests above passed.
+      - name: Create build package
+        run: |
+          mkdir -p dist/package
+          cp -r app requirements.txt README.md VERSION dist/package/
+          find dist/package -name "__pycache__" -type d -prune -exec rm -rf {} +
+          cd dist/package && zip -r ../sdi4213-app.zip .
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdi4213-app
+          path: dist/sdi4213-app.zip
+          if-no-files-found: error
