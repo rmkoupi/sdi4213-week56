@@ -2,6 +2,11 @@
 
 Document meaningful project releases here.
 
+## Unreleased
+
+### Added
+- `Dockerfile` (python:3.13-slim, Uvicorn on port 8000) and `.dockerignore`; image built and run as `sdi4213-week56:0.1.0`.
+
 ## [0.1.0]
 
 ### Added
